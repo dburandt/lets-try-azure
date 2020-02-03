@@ -14,17 +14,26 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install
+      - name: Install dependencies
         run: |
           npm install
         env:
           CI: true
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: code
+          path: .
   deploy:
     needs: build
     runs-on: ubuntu-18.04
     if: github.ref == 'refs/heads/master'
     steps:
-      - name: 'Run Azure webapp deploy action using publish profile credentials'
+      - name: Download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: code
+      - name: Run Azure webapp deploy using publish profile creds
         uses: azure/webapps-deploy@v1
         with: 
           app-name: lets-try-azure
