@@ -20,6 +20,7 @@ jobs:
         env:
           CI: true
   deploy:
+    needs: build
     runs-on: ubuntu-18.04
     if: github.ref == 'refs/heads/master'
     steps:
