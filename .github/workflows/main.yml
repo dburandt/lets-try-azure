@@ -3,7 +3,7 @@ name: Node CI
 on: [push]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
@@ -19,21 +19,8 @@ jobs:
           npm install
         env:
           CI: true
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: code
-          path: .
-  deploy:
-    needs: build
-    runs-on: ubuntu-18.04
-    if: github.ref == 'refs/heads/master'
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: code
       - name: Run Azure webapp deploy using publish profile creds
+        if: github.ref == 'refs/heads/master'
         uses: azure/webapps-deploy@v1
         with: 
           app-name: lets-try-azure
