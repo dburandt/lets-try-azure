@@ -14,3 +14,7 @@
   - then: `git remote add azure https://azuretryer@lets-try-azure.scm.azurewebsites.net/lets-try-azure.git`
   - then `git push azure master` and enter in user password
 3. Profit! App live at `https://lets-try-azure.azurewebsites.net/`
+
+## Deploying via github action CI/CD
+1. Following first option here: https://github.com/Azure/webapps-deploy
+2. 
